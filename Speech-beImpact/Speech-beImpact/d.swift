@@ -61,24 +61,6 @@ struct HomeScreen: View {
                 }
                 .padding(.top, 40)
                 
-                
-                // 🔥 ثلاث صور فوق الكروت مباشرة
-                HStack(spacing: 16) {
-                    Image("أسد")  // ← انتي غيري الاسم
-                        .resizable()
-                        .frame(width: 70, height: 70)
-                    
-                    Image("بطة")  // ← انتي غيري الاسم
-                        .resizable()
-                        .frame(width: 70, height: 70)
-                    
-                    Image("ثعلب")  // ← انتي غيري الاسم
-                        .resizable()
-                        .frame(width: 70, height: 70)
-                }
-                .frame(maxWidth: .infinity)
-                
-                
                 // كروت الأحرف
                 ScrollView {
                     VStack(spacing: 18) {
@@ -95,13 +77,14 @@ struct HomeScreen: View {
                                     
                                     // صورة الأسد فوق Image 1 فقط
                                     if imageName == "Image 1" {
-                                        Image("اسم_صورتك") // ← انتي غيري اسم الأسد
+                                        Image("أسد") // ← انتي غيري اسم الصورة هنا
                                             .resizable()
                                             .frame(width: 60, height: 60)
-                                            .offset(x: -80, y: -10)
+                                            .offset(x: -80, y: -1)
                                     }
                                 }
                             }
+                            
                             .buttonStyle(.plain)
                             .frame(maxWidth: .infinity, alignment: .center)
                         }
