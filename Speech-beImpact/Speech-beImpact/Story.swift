@@ -15,16 +15,16 @@ struct CurvedHeader: Shape {
 }
 
 struct AnimalQuizView: View {
-    // شرح: حالة لتتبع هل تم اختيار إجابة صحيحة (أسد) أم لا
+    // Track if a correct answer (Lion) has been chosen
     @State private var isCorrect = false
-    // شرح: حالة لتتبع اسم الخيار الذي ضغطه المستخدم (لاستخدامها في تلوين الزر أو منع التكرار)
+    // Track which option was tapped (for coloring or preventing repeat)
     @State private var selectedOption: String? = nil
-    // شرح: حالة لإظهار تنبيه عند الإجابة الصحيحة (إلى أن تضعي انتقال فعلي لصفحة ثانية)
+    // Show alert on correct answer
     @State private var showCorrectAlert = false
     
     var body: some View {
         ZStack(alignment: .top) {
-            // الخلفية العامة للتطبيق من الأصول
+            // App background from assets
             Image("خلفيتي")
                 .resizable()
                 .aspectRatio(contentMode: .fill)
@@ -32,14 +32,14 @@ struct AnimalQuizView: View {
                 .ignoresSafeArea()
             
             VStack(spacing: 0) {
-                // ادفع المحتوى للمنتصف رأسيًا
+                // Push content to vertical center
                 Spacer(minLength: 0)
                 
-                // بطاقة المحتوى: القصة + الحروف + الصورة
+                // Content card: story + letters + image
                 VStack(spacing: 0) {
                     // Main text
                     VStack(spacing: 0) {
-                        Text("خرج احمد الى حديقة\nالحيوانات و وجد")
+                        Text("Ahmed went to the zoo and found")
                             .multilineTextAlignment(.center)
                             .font(.system(size: 22, weight: .regular))
                             .foregroundColor(.black)
@@ -50,104 +50,102 @@ struct AnimalQuizView: View {
                     }
                     .padding(.top, 2)
                     
-                    // Animal names with colored first letters
+                    // Animal names with colored first letters (English)
                     HStack(spacing: 20) {
-                        // جمل
+                        // Camel
                         HStack(spacing: 0) {
-                            Text("مل")
-                                .foregroundColor(.white)
-                            Text("ج")
+                            Text("C")
+                                .foregroundColor(.brown)
+                            Text("amel")
                                 .foregroundColor(.black)
                         }
                         .font(.system(size: 24, weight: .regular))
                         
-                        // بطة
+                        // Duck
                         HStack(spacing: 0) {
-                            Text("طه")
-                                .foregroundColor(.white)
-                            Text("ب")
+                            Text("D")
+                                .foregroundColor(.brown)
+                            Text("uck")
                                 .foregroundColor(.black)
                         }
                         .font(.system(size: 24, weight: .regular))
                         
-                        // أسد
+                        // Lion
                         HStack(spacing: 0) {
-                            Text("سد")
-                                .foregroundColor(.white)
-                            Text("أ")
+                            Text("L")
+                                .foregroundColor(.brown)
+                            Text("ion")
                                 .foregroundColor(.black)
                         }
                         .font(.system(size: 24, weight: .regular))
                     }
                     .padding(.horizontal, 12)
                     
-                    // صورة الأسد
+                    // Lion image (asset still named in Arabic unless you provide an English name)
                     Image("أسد")
                         .resizable()
                         .scaledToFit()
-                        .frame(width: 160, height: 160)
+                        .frame(width: 250, height: 250)
                         .padding(.top, 2)
                 }
                 .padding(.vertical, 3)
                 .padding(.horizontal, 6)
-                .frame(maxWidth: 560) // زيادة الحد الأقصى للعرض
+                .frame(maxWidth: 560) // wider on small screens
                 .background(
                     RoundedRectangle(cornerRadius: 20, style: .continuous)
-                        .fill(Color(.gray).opacity(0.07))
+                        .fill(Color(.gray).opacity(0.15))
                 )
-                // حواف بارزة (ظلال خفيفة مزدوجة لإحساس البطاقة)
                 .shadow(color: .black.opacity(0.18), radius: 10, x: 0, y: 8)
                 .shadow(color: .white.opacity(0.2), radius: 2, x: -1, y: -1)
-                .padding(.horizontal, 30) // تقليل الحواف الجانبية لتظهر أعرض على الشاشات الصغيرة
+                .padding(.horizontal, 30)
                 
-                // خيارات الإجابات جنب بعض (أفقية)
+                // Answer options horizontally
                 HStack(spacing: 12) {
-                    liquidGlassButton(title: "جمل") {
-                        handleSelection(option: "جمل")
+                    liquidGlassButton(title: "Camel") {
+                        handleSelection(option: "Camel")
                     }
-                    liquidGlassButton(title: "بطة") {
-                        handleSelection(option: "بطة")
+                    liquidGlassButton(title: "Duck") {
+                        handleSelection(option: "Duck")
                     }
-                    liquidGlassButton(title: "أسد") {
-                        handleSelection(option: "أسد")
+                    liquidGlassButton(title: "Lion") {
+                        handleSelection(option: "Lion")
                     }
                 }
                 .padding(.top, 16)
                 .padding(.horizontal, 40)
                 
-                // ادفع للأسفل قليلًا لتحافظ على التمركز العام
                 Spacer(minLength: 0)
             }
         }
-        // نزيل تنبيه الخطأ تمامًا، ونبقي تنبيه الصح إذا رغبتِ
-        .alert("أحسنت!", isPresented: $showCorrectAlert) {
-            Button("متابعة") {
-                // TODO: الانتقال للصفحة التالية عند الإجابة الصحيحة
+        // Keep only the correct alert
+        .alert("Great job!", isPresented: $showCorrectAlert) {
+            Button("Continue") {
+                // TODO: Navigate to next page on correct answer
             }
         } message: {
-            Text("اختيار صحيح.")
+            Text("Correct choice.")
         }
     }
     
     // MARK: - Actions
     private func handleSelection(option: String) {
         selectedOption = option
-        if option == "أد" {
+        if option == "Lion" {
             isCorrect = true
             showCorrectAlert = true
         } else {
             isCorrect = false
-            // لا تنبيه للخطأ؛ فقط يتغير لون الخيار عبر selectedOption
+            // No alert for wrong answer; only button color changes via selectedOption
         }
     }
     
     // MARK: - Components
-    // زر "Liquid Glass" قابل لإعادة الاستخدام
+    // Reusable "Liquid Glass" button
     @ViewBuilder
     private func liquidGlassButton(title: String, action: @escaping () -> Void) -> some View {
         Button(action: action) {
             let isSelected = selectedOption == title
-            let isRight = title == "أسد"
+            let isRight = title == "Lion"
             Text(title)
                 .font(.system(size: 20, weight: .semibold))
                 .foregroundColor(isSelected ? (isRight ? .green : .red) : .primary)
@@ -160,7 +158,7 @@ struct AnimalQuizView: View {
                 )
                 .shadow(color: .black.opacity(0.08), radius: 6, x: 0, y: 3)
         }
-        .disabled(isCorrect && title != "أسد")
+        .disabled(isCorrect && title != "Lion")
     }
 }
 
