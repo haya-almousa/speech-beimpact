@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		FE3314AC2EDDC17F00D2B4B2 /* ConfettiSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = FE3314AB2EDDC17F00D2B4B2 /* ConfettiSwiftUI */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		549603F12EDC6ACC005AAECB /* Speech-beImpact.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Speech-beImpact.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -23,6 +27,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FE3314AC2EDDC17F00D2B4B2 /* ConfettiSwiftUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,6 +70,7 @@
 			);
 			name = "Speech-beImpact";
 			packageProductDependencies = (
+				FE3314AB2EDDC17F00D2B4B2 /* ConfettiSwiftUI */,
 			);
 			productName = "Speech-beImpact";
 			productReference = 549603F12EDC6ACC005AAECB /* Speech-beImpact.app */;
@@ -94,6 +100,9 @@
 			);
 			mainGroup = 549603E82EDC6ACC005AAECB;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				FE3314AA2EDDC17F00D2B4B2 /* XCRemoteSwiftPackageReference "ConfettiSwiftUI" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 549603F22EDC6ACC005AAECB /* Products */;
 			projectDirPath = "";
@@ -332,6 +341,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		FE3314AA2EDDC17F00D2B4B2 /* XCRemoteSwiftPackageReference "ConfettiSwiftUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/simibac/ConfettiSwiftUI.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.3;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		FE3314AB2EDDC17F00D2B4B2 /* ConfettiSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FE3314AA2EDDC17F00D2B4B2 /* XCRemoteSwiftPackageReference "ConfettiSwiftUI" */;
+			productName = ConfettiSwiftUI;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 549603E92EDC6ACC005AAECB /* Project object */;
 }
