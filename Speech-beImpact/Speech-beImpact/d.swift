@@ -9,7 +9,10 @@ import SwiftUI
 
 struct d: View {
     var body: some View {
-        HomeScreen()
+        // لازم NavigationStack عشان التنقل للصفحة الثانية
+        NavigationStack {
+            HomeScreen()
+        }
     }
 }
 
@@ -26,6 +29,15 @@ struct HomeScreen: View {
         "Image 7",
         "Image 8",
         "Image 9"
+    ]
+    
+    // هنا نربط كل صورة كرت بالحروف + رابط الفيديو حقها
+    // كمّلي أنتي باقي الحروف والروابط
+    let letterData: [String: ([String], String)] = [
+        "Image 1": (["أِ", "أُ", "أَ"], "https://youtu.be/biWQsbDq5O0?feature=shared"),
+        // "Image 2": (["بِ", "بُ", "بَ"], "رابط_الباء"),
+        // "Image 3": (["تِ", "تُ", "تَ"], "رابط_التاء"),
+        // ... كمّلي للباقي
     ]
     
     var body: some View {
@@ -65,28 +77,44 @@ struct HomeScreen: View {
                 ScrollView {
                     VStack(spacing: 18) {
                         ForEach(letterImages, id: \.self) { imageName in
-                            Button {
-                                print("\(imageName) tapped")
-                            } label: {
+                            
+                            // إذا عندنا بيانات لهذا الكرت (حروف + فيديو)
+                            if let data = letterData[imageName] {
+                                NavigationLink {
+                                    // نرسل الحروف + رابط الفيديو لصفحة الفيديو
+                                    VideoPage(
+                                        letters: data.0,
+                                        videoURL: data.1
+                                    )
+                                } label: {
+                                    ZStack {
+                                        // صورة الكرت
+                                        Image(imageName)
+                                            .resizable()
+                                            .frame(width: 269, height: 103)
+                                            .clipped()
+                                        
+                                        // صورة الأسد فوق Image 1 فقط
+                                        if imageName == "Image 1" {
+                                            Image("أسد")
+                                                .resizable()
+                                                .frame(width: 60, height: 60)
+                                                .offset(x: -80, y: -1)
+                                        }
+                                    }
+                                }
+                                .buttonStyle(.plain)
+                                .frame(maxWidth: .infinity, alignment: .center)
+                            } else {
+                                // لو ما حطيتِ بيانات للكرت، يبان كزر عادي بدون تنقل
                                 ZStack {
-                                    // صورة الكرت
                                     Image(imageName)
                                         .resizable()
                                         .frame(width: 269, height: 103)
                                         .clipped()
-                                    
-                                    // صورة الأسد فوق Image 1 فقط
-                                    if imageName == "Image 1" {
-                                        Image("أسد") // ← انتي غيري اسم الصورة هنا
-                                            .resizable()
-                                            .frame(width: 60, height: 60)
-                                            .offset(x: -80, y: -1)
-                                    }
                                 }
+                                .frame(maxWidth: .infinity, alignment: .center)
                             }
-                            
-                            .buttonStyle(.plain)
-                            .frame(maxWidth: .infinity, alignment: .center)
                         }
                     }
                     .padding(.bottom, 60)

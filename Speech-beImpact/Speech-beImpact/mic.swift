@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import ConfettiSwiftUI
+//import ConfettiSwiftUI
 
 struct HomeView: View {
     @StateObject var recognizer = SpeechRecognizer()
@@ -110,7 +110,7 @@ struct HomeView: View {
                 Spacer()
             }
             
-            ConfettiCannon(trigger: $confettiCounter)
+//            ConfettiCannon(trigger: $confettiCounter)
         }
     }
     
