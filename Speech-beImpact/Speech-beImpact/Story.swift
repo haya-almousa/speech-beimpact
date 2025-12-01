@@ -19,8 +19,6 @@ struct AnimalQuizView: View {
     @State private var isCorrect = false
     // شرح: حالة لتتبع اسم الخيار الذي ضغطه المستخدم (لاستخدامها في تلوين الزر أو منع التكرار)
     @State private var selectedOption: String? = nil
-    // شرح: حالة لإظهار تنبيه عند اختيار إجابة خاطئة
-    @State private var showWrongAlert = false
     // شرح: حالة لإظهار تنبيه عند الإجابة الصحيحة (إلى أن تضعي انتقال فعلي لصفحة ثانية)
     @State private var showCorrectAlert = false
     
@@ -44,10 +42,10 @@ struct AnimalQuizView: View {
                         Text("خرج احمد الى حديقة\nالحيوانات و وجد")
                             .multilineTextAlignment(.center)
                             .font(.system(size: 22, weight: .regular))
-                            .foregroundColor(.white)
+                            .foregroundColor(.black)
                         Text("............")
                             .font(.system(size: 24, weight: .regular))
-                            .foregroundColor(.white.opacity(0.95))
+                            .foregroundColor(.black)
                             .padding(.top, 2)
                     }
                     .padding(.top, 2)
@@ -95,15 +93,15 @@ struct AnimalQuizView: View {
                 .frame(maxWidth: 560) // زيادة الحد الأقصى للعرض
                 .background(
                     RoundedRectangle(cornerRadius: 20, style: .continuous)
-                        .fill()
+                        .fill(Color(.gray).opacity(0.07))
                 )
                 // حواف بارزة (ظلال خفيفة مزدوجة لإحساس البطاقة)
                 .shadow(color: .black.opacity(0.18), radius: 10, x: 0, y: 8)
                 .shadow(color: .white.opacity(0.2), radius: 2, x: -1, y: -1)
                 .padding(.horizontal, 30) // تقليل الحواف الجانبية لتظهر أعرض على الشاشات الصغيرة
                 
-                // خيارات الإجابات منفصلة تحت البطاقة
-                VStack(spacing: 12) {
+                // خيارات الإجابات جنب بعض (أفقية)
+                HStack(spacing: 12) {
                     liquidGlassButton(title: "جمل") {
                         handleSelection(option: "جمل")
                     }
@@ -121,13 +119,8 @@ struct AnimalQuizView: View {
                 Spacer(minLength: 0)
             }
         }
-        // تنبيهات صحيحة/خاطئة
-        .alert("حاولي مرة أخرى", isPresented: $showWrongAlert) {
-            Button("حسنًا", role: .cancel) {}
-        } message: {
-            Text("اختاري الحيوان الصحيح.")
-        }
-        .alert("أحسنتِ!", isPresented: $showCorrectAlert) {
+        // نزيل تنبيه الخطأ تمامًا، ونبقي تنبيه الصح إذا رغبتِ
+        .alert("أحسنت!", isPresented: $showCorrectAlert) {
             Button("متابعة") {
                 // TODO: الانتقال للصفحة التالية عند الإجابة الصحيحة
             }
@@ -144,7 +137,7 @@ struct AnimalQuizView: View {
             showCorrectAlert = true
         } else {
             isCorrect = false
-            showWrongAlert = true
+            // لا تنبيه للخطأ؛ فقط يتغير لون الخيار عبر selectedOption
         }
     }
     
