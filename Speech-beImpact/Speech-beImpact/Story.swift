@@ -132,7 +132,7 @@ struct AnimalQuizView: View {
     // MARK: - Actions
     private func handleSelection(option: String) {
         selectedOption = option
-        if option == "أسد" {
+        if option == "أد" {
             isCorrect = true
             showCorrectAlert = true
         } else {
