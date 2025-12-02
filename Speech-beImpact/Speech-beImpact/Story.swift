@@ -148,15 +148,17 @@ struct AnimalQuizView: View {
             let isRight = title == "Lion"
             Text(title)
                 .font(.system(size: 20, weight: .semibold))
-                .foregroundColor(isSelected ? (isRight ? .green : .red) : .primary)
+                .foregroundColor(isSelected ? (isRight ? .green : .red) : .white)
                 .frame(maxWidth: .infinity)
                 .padding(.vertical, 12)
-                .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 14, style: .continuous))
+                .background(
+                    RoundedRectangle(cornerRadius: 14, style: .continuous)
+                        .fill(Color(hex: "F3BB34"))
+                )
                 .overlay(
                     RoundedRectangle(cornerRadius: 14, style: .continuous)
-                        .stroke(Color.white.opacity(0.35), lineWidth: 1)
+                        .stroke(Color(hex: "F3BB34"))
                 )
-                .shadow(color: .black.opacity(0.08), radius: 6, x: 0, y: 3)
         }
         .disabled(isCorrect && title != "Lion")
     }
