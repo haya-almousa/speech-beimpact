@@ -52,10 +52,11 @@ struct HomeView: View {
                 // مربع الجملة
                 Text(targetWord)
                     .font(.system(size: 32, weight: .bold))
-                    .foregroundColor(.white)
+                    .foregroundColor(.black)
                     .frame(width: 300, height: 120)
-                    .background(Color(hex: "F3BB34"))
+                    .background(Color(hex: "FFFFFF"))
                     .cornerRadius(20)
+                    .opacity(0.60)
                     .shadow(color: .black.opacity(0.15), radius: 6, y: 4)
                 
                 // أيقونة الميكروفون (زر واحد)
@@ -78,7 +79,7 @@ struct HomeView: View {
                         .frame(width: 150, height: 150)
                         .background(
                             RoundedRectangle(cornerRadius: 30)
-                                .fill(Color(hex: "F3BB34")
+                                .fill(Color(hex: "F6B922")
                                     .opacity(0.90))
                         )
                         .shadow(color: .black.opacity(0.25), radius: 8, y: 5)
