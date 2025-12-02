@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-//import ConfettiSwiftUI
+import ConfettiSwiftUI
 
 struct HomeView: View {
     @StateObject var recognizer = SpeechRecognizer()
@@ -99,7 +99,7 @@ struct HomeView: View {
                     Button(action: {
                         nextSentence()
                     }) {
-                        Text("التالي")
+                        Text("next")
                             .font(.title2)
                             .foregroundColor(.white)
                             .frame(width: 195.24, height: 42.67)
@@ -113,7 +113,7 @@ struct HomeView: View {
                 Spacer()
             }
             
-//            ConfettiCannon(trigger: $confettiCounter)
+            ConfettiCannon(trigger: $confettiCounter)
         }
     }
     
@@ -134,19 +134,25 @@ struct HomeView: View {
         let spoken = recognizer.transcript.trimmingCharacters(in: .whitespaces)
         
         if spoken.contains(targetWord) {
+            // ✔️ الإجابة صحيحة
             resultMessage = "صح"
             db.insert(word: targetWord, correct: true)
-            
+
+            // يظهر زر التالي فقط إذا كانت صح
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 showNextButton = true
             }
-            
+
         } else {
+            // ❌ إجابة خاطئة
             resultMessage = "خطا"
             db.insert(word: targetWord, correct: false)
-            showNextButton = true
+
+            // لا يظهر زر التالي إذا كانت خطأ
+            showNextButton = false
         }
     }
+
     
     func nextSentence() {
         if currentIndex < sentences.count - 1 {
@@ -155,7 +161,7 @@ struct HomeView: View {
             resultMessage = ""
             showNextButton = false
         } else {
-            resultMessage = "👏 خلصت كل الجمل"
+            resultMessage = ""
             showNextButton = false
             confettiCounter += 1
         }
