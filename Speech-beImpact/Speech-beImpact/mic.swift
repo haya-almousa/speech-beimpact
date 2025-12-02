@@ -13,9 +13,9 @@ struct HomeView: View {
     let db = SQLiteManager()
     
     @State private var sentences = [
-        "أسد",
-        "أخطبوط",
-        "إوزة"
+        "Apple",
+        "Ant",
+        "Air"
     
     ]
     
@@ -134,7 +134,7 @@ struct HomeView: View {
         let spoken = recognizer.transcript.trimmingCharacters(in: .whitespaces)
         
         if spoken.contains(targetWord) {
-            resultMessage = "😁"
+            resultMessage = "صح"
             db.insert(word: targetWord, correct: true)
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
@@ -142,7 +142,7 @@ struct HomeView: View {
             }
             
         } else {
-            resultMessage = "😕"
+            resultMessage = "خطا"
             db.insert(word: targetWord, correct: false)
             showNextButton = true
         }
