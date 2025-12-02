@@ -34,9 +34,9 @@ struct HomeScreen: View {
     // هنا نربط كل صورة كرت بالحروف + رابط الفيديو حقها
     // كمّلي أنتي باقي الحروف والروابط
     let letterData: [String: ([String], String)] = [
-        "Image 1": (["أِ", "أُ", "أَ"], "https://youtu.be/biWQsbDq5O0?feature=shared"),
-        // "Image 2": (["بِ", "بُ", "بَ"], "رابط_الباء"),
-        // "Image 3": (["تِ", "تُ", "تَ"], "رابط_التاء"),
+        "Image 1": (["A","a"], "https://youtu.be/biWQsbDq5O0?feature=shared"),
+         "Image 2": (["B","b"], "رابط_الباء"),
+         "Image 3": (["C","c"], "رابط_التاء"),
         // ... كمّلي للباقي
     ]
     
@@ -82,10 +82,8 @@ struct HomeScreen: View {
                             if let data = letterData[imageName] {
                                 NavigationLink {
                                     // نرسل الحروف + رابط الفيديو لصفحة الفيديو
-                                    VideoPage(
-                                        letters: data.0,
-                                        videoURL: data.1
-                                    )
+                                    VideoPage(letters: ["أِ", "أُ", "أَ"], videoID: "biWQsbDq5O0")
+
                                 } label: {
                                     ZStack {
                                         // صورة الكرت
@@ -96,10 +94,10 @@ struct HomeScreen: View {
                                         
                                         // صورة الأسد فوق Image 1 فقط
                                         if imageName == "Image 1" {
-                                            Image("أسد")
-                                                .resizable()
-                                                .frame(width: 60, height: 60)
-                                                .offset(x: -80, y: -1)
+//                                            Image("أسد")
+//                                                .resizable()
+//                                                .frame(width: 60, height: 60)
+//                                                .offset(x: -80, y: -1)
                                         }
                                     }
                                 }
