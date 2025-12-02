@@ -32,15 +32,18 @@ struct HomeView: View {
     
     var body: some View {
         ZStack {
-            Color.white.ignoresSafeArea()
-            
-            // 🔶 Top Wave Shape
-            TopWaveShape()
-                .fill(Color(red: 0.90, green: 0.74, blue: 0.20))
-                .frame(height: 180)
-                .shadow(color: .black.opacity(0.12), radius:8, y: 6)
-                .ignoresSafeArea()
-                .offset(y: -299)   // ← ينزل الموجة بدون ما يظهر فراغ
+//            Color.white.ignoresSafeArea()
+            Image("خلفيتي")
+                 .resizable()
+                 .scaledToFill()
+                 .ignoresSafeArea()
+//            // 🔶 Top Wave Shape
+//            TopWaveShape()
+//                .fill(Color(red: 0.90, green: 0.74, blue: 0.20))
+//                .frame(height: 180)
+//                .shadow(color: .black.opacity(0.12), radius:8, y: 6)
+//                .ignoresSafeArea()
+//                .offset(y: -299)   // ← ينزل الموجة بدون ما يظهر فراغ
 
             
             VStack(spacing: 50) {
@@ -51,7 +54,7 @@ struct HomeView: View {
                     .font(.system(size: 32, weight: .bold))
                     .foregroundColor(.white)
                     .frame(width: 300, height: 120)
-                    .background(Color(hex: "EA8A48"))
+                    .background(Color(hex: "F3BB34"))
                     .cornerRadius(20)
                     .shadow(color: .black.opacity(0.15), radius: 6, y: 4)
                 
@@ -75,7 +78,7 @@ struct HomeView: View {
                         .frame(width: 150, height: 150)
                         .background(
                             RoundedRectangle(cornerRadius: 30)
-                                .fill(Color(hex: "EA8A48")
+                                .fill(Color(hex: "F3BB34")
                                     .opacity(0.90))
                         )
                         .shadow(color: .black.opacity(0.25), radius: 8, y: 5)
