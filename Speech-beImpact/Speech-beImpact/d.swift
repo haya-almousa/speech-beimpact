@@ -31,18 +31,25 @@ struct HomeScreen: View {
         "Image 9"
     ]
     
-    // هنا نربط كل صورة كرت بالحروف + رابط الفيديو حقها
-    // كمّلي أنتي باقي الحروف والروابط
+    // تمارين كل حرف
+    let exercises: [String: [String]] = [
+        "A": ["Apple", "Ant", "Air"],
+        "B": ["Ball", "Bee", "Banana"],
+        "C": ["Cat", "Cake", "Car"]
+        // كمّلي الباقي
+    ]
+
+    // هنا نربط كل صورة كرت بالحروف + ID الفيديو حقها
+    // كمّلي أنتي باقي الحروف والـ IDs
     let letterData: [String: ([String], String)] = [
-        "Image 1": (["A","a"], "https://youtu.be/biWQsbDq5O0?feature=shared"),
-         "Image 2": (["B","b"], "رابط_الباء"),
-         "Image 3": (["C","c"], "رابط_التاء"),
-        // ... كمّلي للباقي
+        "Image 1": (["A"], "biWQsbDq5O0"),
+        "Image 2": (["B"], "xxxxxxxxxxx"),
+        "Image 3": (["C"], "yyyyyyyyyyy")
+        // ... كمّلي للباقي Image 4 .. Image 9
     ]
     
     var body: some View {
         ZStack {
-
             // الخلفية الجديدة فقط (بدون زخارف)
             Image("خلفيتي")
                 .resizable()
@@ -77,44 +84,42 @@ struct HomeScreen: View {
                 ScrollView {
                     VStack(spacing: 18) {
                         ForEach(letterImages, id: \.self) { imageName in
-                            
-                            // إذا عندنا بيانات لهذا الكرت (حروف + فيديو)
                             if let data = letterData[imageName] {
-                                NavigationLink {
-                                    // نرسل الحروف + رابط الفيديو لصفحة الفيديو
-                                    VideoPage(letters: ["أِ", "أُ", "أَ"], videoID: "biWQsbDq5O0")
-
-                                } label: {
-                                    ZStack {
-                                        // صورة الكرت
-                                        Image(imageName)
-                                            .resizable()
-                                            .frame(width: 269, height: 103)
-                                            .clipped()
-                                        
-                                        // صورة الأسد فوق Image 1 فقط
-                                        if imageName == "Image 1" {
-//                                            Image("أسد")
-//                                                .resizable()
-//                                                .frame(width: 60, height: 60)
-//                                                .offset(x: -80, y: -1)
-                                        }
+                                // استخرج الحرف الأول لهذا الكرت ثم التمارين له
+                                let lettersForCard = data.0
+                                let videoID = data.1
+                                let sentencesForCard: [String] = {
+                                    if let firstLetter = lettersForCard.first,
+                                       let tasks = exercises[firstLetter] {
+                                        return tasks
+                                    } else {
+                                        return []
                                     }
-                                }
-                                .buttonStyle(.plain)
-                                .frame(maxWidth: .infinity, alignment: .center)
-                            } else {
-                                // لو ما حطيتِ بيانات للكرت، يبان كزر عادي بدون تنقل
-                                ZStack {
+                                }()
+                                
+                                NavigationLink {
+                                    // نفتح صفحة الفيديو أولاً ونمرر التمارين الصحيحة معها
+                                    VideoPage(
+                                        letters: lettersForCard,
+                                        videoID: videoID,
+                                        sentences: sentencesForCard
+                                    )
+                                } label: {
                                     Image(imageName)
                                         .resizable()
                                         .frame(width: 269, height: 103)
                                         .clipped()
                                 }
-                                .frame(maxWidth: .infinity, alignment: .center)
+                                .buttonStyle(.plain)
+                            } else {
+                                Image(imageName)
+                                    .resizable()
+                                    .frame(width: 269, height: 103)
+                                    .clipped()
                             }
                         }
                     }
+                    .frame(maxWidth: .infinity, alignment: .center) // توسيط المحتوى
                     .padding(.bottom, 60)
                 }
                 

@@ -12,13 +12,7 @@ struct HomeView: View {
     @StateObject var recognizer = SpeechRecognizer()
     let db = SQLiteManager()
     
-    @State private var sentences = [
-        "Apple",
-        "Ant",
-        "Air"
-    
-    ]
-    
+    @State var sentences: [String]
     @State private var currentIndex = 0
     @State private var confettiCounter = 0
     @State private var isRecording = false
@@ -30,45 +24,35 @@ struct HomeView: View {
     @State private var resultMessage = ""
     @State private var showNextButton = false
     
+    init(sentences: [String]) {
+        _sentences = State(initialValue: sentences)
+    }
+    
+    
+    let exercises: [String: [String]] = [
+        "A": ["Apple", "Ant", "Air"],
+        "B": ["Ball", "Bee", "Banana"],
+        "C": ["Cat", "Cake", "Car"]
+    ]
+
     var body: some View {
         ZStack {
-//            Color.white.ignoresSafeArea()
             Image("خلفيتي")
-                 .resizable()
-                 .scaledToFill()
-                 .ignoresSafeArea()
-//            // 🔶 Top Wave Shape
-//            TopWaveShape()
-//                .fill(Color(red: 0.90, green: 0.74, blue: 0.20))
-//                .frame(height: 180)
-//                .shadow(color: .black.opacity(0.12), radius:8, y: 6)
-//                .ignoresSafeArea()
-//                .offset(y: -299)   // ← ينزل الموجة بدون ما يظهر فراغ
+                .resizable()
+                .scaledToFill()
+                .ignoresSafeArea()
 
-            
             VStack(spacing: 50) {
                 Spacer().frame(height: 150)
-                
-                // مربع الجملة
+
                 Text(targetWord)
                     .font(.system(size: 32, weight: .bold))
-                    .foregroundColor(.white)
+                    .foregroundColor(.black)
                     .frame(width: 300, height: 120)
-                    .background(Color(hex: "F3BB34"))
+                    .background(Color(hex: "ffffff"))
                     .cornerRadius(20)
-                    .shadow(color: .black.opacity(0.15), radius: 6, y: 4)
-                
-                // أيقونة الميكروفون (زر واحد)
-//                Button(action: {
-//                    toggleRecording()
-//                }) {
-//                    Image(systemName: isRecording ? "mic.fill" : "mic.slash.fill")
-//                        .font(.system(size: 80))
-//                        .foregroundColor(Color(red: 0.98, green: 0.80, blue: 0.20))
-//                        .padding()
-//                        .background(Circle().fill(Color(red: 0.86, green: 0.52, blue: 0.26).opacity(0.3)))
-//                        .shadow(radius: 5)
-//                }
+                    .opacity(0.60)
+
                 Button(action: {
                     toggleRecording()
                 }) {
@@ -78,23 +62,14 @@ struct HomeView: View {
                         .frame(width: 150, height: 150)
                         .background(
                             RoundedRectangle(cornerRadius: 30)
-                                .fill(Color(hex: "F3BB34")
-                                    .opacity(0.90))
+                                .fill(Color(hex: "f6b922").opacity(0.90))
                         )
                         .shadow(color: .black.opacity(0.25), radius: 8, y: 5)
                 }
 
-
-//
-//                Text("انت قلت:")
-//                Text(recognizer.transcript)
-//                    .foregroundColor(.gray)
-                
-                // نتيجة الطفل
                 Text(resultMessage)
                     .font(.largeTitle)
-                
-                // زر التالي يظهر بعد التقييم
+
                 if showNextButton {
                     Button(action: {
                         nextSentence()
@@ -102,17 +77,15 @@ struct HomeView: View {
                         Text("next")
                             .font(.title2)
                             .foregroundColor(.white)
-                            .frame(width: 195.24, height: 42.67)
-                            .background(Color(hex: "F3BB34"))//19A25B
+                            .frame(width: 195, height: 42)
+                            .background(Color(hex: "f6b922"))
                             .cornerRadius(25)
-                            .shadow(radius: 4)
                     }
-
                 }
-                
+
                 Spacer()
             }
-            
+
             ConfettiCannon(trigger: $confettiCounter)
         }
     }
@@ -135,7 +108,7 @@ struct HomeView: View {
         
         if spoken.contains(targetWord) {
             // ✔️ الإجابة صحيحة
-            resultMessage = "صح"
+            resultMessage = "😁"
             db.insert(word: targetWord, correct: true)
 
             // يظهر زر التالي فقط إذا كانت صح
@@ -145,7 +118,7 @@ struct HomeView: View {
 
         } else {
             // ❌ إجابة خاطئة
-            resultMessage = "خطا"
+            resultMessage = "😔"
             db.insert(word: targetWord, correct: false)
 
             // لا يظهر زر التالي إذا كانت خطأ
@@ -207,12 +180,12 @@ struct TopWaveShape: Shape {
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView()
+        HomeView(sentences: ["Apple", "Ant", "Air"])
     }
 }
 
 
 
 #Preview {
-    HomeView()
+    HomeView(sentences: ["Apple", "Ant", "Air"])
 }
