@@ -98,6 +98,6 @@ struct LetterVideoScreen: View {
     VideoPage(
         letters: ["أِ", "أُ", "أَ"],
         videoID: "biWQsbDq5O0",
-        sentences: ["Apple", "Ant", "Air"]
+        sentences: ["Apple","Air"]
     )
 }
