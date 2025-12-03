@@ -29,11 +29,19 @@ struct HomeView: View {
     }
     
     
+//    let exercises: [String: [String]] = [
+//        "A": ["Apple", "Air"],
+//        "B": [ "Bee", "Banana"],
+//        
+//        
+//        "C": ["Cat", "Cake", "Car"]
+//    ]
     let exercises: [String: [String]] = [
-        "A": ["Apple", "Ant", "Air"],
-        "B": ["Ball", "Bee", "Banana"],
-        "C": ["Cat", "Cake", "Car"]
+        "A": ["Apple", "Arm", "Yes"],
+        "B": ["Ball", "Bee", "Bag"],
+        "C": ["Cat", "Cup", "Car"]
     ]
+ 
 
     var body: some View {
         ZStack {
@@ -52,7 +60,8 @@ struct HomeView: View {
                     .background(Color(hex: "ffffff"))
                     .cornerRadius(20)
                     .opacity(0.60)
-
+                    .shadow(color: .black.opacity(0.15), radius: 6, y: 4)
+                
                 Button(action: {
                     toggleRecording()
                 }) {
@@ -67,6 +76,9 @@ struct HomeView: View {
                         .shadow(color: .black.opacity(0.25), radius: 8, y: 5)
                 }
 
+                Text("انت قلت:")
+                Text(recognizer.transcript)
+                    .foregroundColor(.gray)
                 Text(resultMessage)
                     .font(.largeTitle)
 
@@ -90,10 +102,27 @@ struct HomeView: View {
         }
     }
     
+//    func toggleRecording() {
+//        if isRecording {
+//            recognizer.stop()
+//            checkWord()
+//            isRecording = false
+//        } else {
+//            recognizer.start()
+//            resultMessage = ""
+//            showNextButton = false
+//            isRecording = true
+//        }
+//    }
+    
     func toggleRecording() {
         if isRecording {
             recognizer.stop()
-            checkWord()
+
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                checkWord()
+            }
+
             isRecording = false
         } else {
             recognizer.start()
@@ -102,31 +131,28 @@ struct HomeView: View {
             isRecording = true
         }
     }
-    
+
     func checkWord() {
-        let spoken = recognizer.transcript.trimmingCharacters(in: .whitespaces)
-        
-        if spoken.contains(targetWord) {
-            // ✔️ الإجابة صحيحة
+        let spoken = recognizer.transcript.trimmingCharacters(in: .whitespacesAndNewlines)
+
+        let spokenLower = spoken.lowercased()
+        let targetLower = targetWord.lowercased()
+
+        if spokenLower.contains(targetLower) {
             resultMessage = "😁"
             db.insert(word: targetWord, correct: true)
 
-            // يظهر زر التالي فقط إذا كانت صح
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 showNextButton = true
             }
 
         } else {
-            // ❌ إجابة خاطئة
             resultMessage = "😔"
             db.insert(word: targetWord, correct: false)
-
-            // لا يظهر زر التالي إذا كانت خطأ
             showNextButton = false
         }
     }
 
-    
     func nextSentence() {
         if currentIndex < sentences.count - 1 {
             currentIndex += 1
@@ -141,20 +167,19 @@ struct HomeView: View {
     }
 }
 
-//
-//extension Color {
-//    init(hex: String) {
-//        let scanner = Scanner(string: hex)
-//        var rgb: UInt64 = 0
-//        scanner.scanHexInt64(&rgb)
-//        
-//        let r = Double((rgb >> 16) & 0xFF) / 255
-//        let g = Double((rgb >> 8) & 0xFF) / 255
-//        let b = Double(rgb & 0xFF) / 255
-//        
-//        self.init(red: r, green: g, blue: b)
-//    }
-//}
+extension Color {
+    init(hex: String) {
+        let scanner = Scanner(string: hex)
+        var rgb: UInt64 = 0
+        scanner.scanHexInt64(&rgb)
+        
+        let r = Double((rgb >> 16) & 0xFF) / 255
+        let g = Double((rgb >> 8) & 0xFF) / 255
+        let b = Double(rgb & 0xFF) / 255
+        
+        self.init(red: r, green: g, blue: b)
+    }
+}
  
 // الموجة العلوية
 struct TopWaveShape: Shape {
@@ -176,16 +201,14 @@ struct TopWaveShape: Shape {
     }
 }
 
-
-
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView(sentences: ["Apple", "Ant", "Air"])
+        HomeView(sentences: ["Apple", "Arm", "Yes"])
     }
 }
 
-
-
 #Preview {
-    HomeView(sentences: ["Apple", "Ant", "Air"])
+//    HomeView(sentences: ["Apple", "Ant", "Air"])
+    HomeView(sentences: ["Apple", "Arm", "Yes"])
+
 }
