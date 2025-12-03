@@ -67,6 +67,11 @@ struct HomeView: View {
                         .shadow(color: .black.opacity(0.25), radius: 8, y: 5)
                 }
 
+                
+                
+                                Text("انت قلت:")
+                                Text(recognizer.transcript)
+                                    .foregroundColor(.gray)
                 Text(resultMessage)
                     .font(.largeTitle)
 
