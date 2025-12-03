@@ -166,15 +166,34 @@ struct LetterVideoScreen: View {
                 Spacer().frame(height: 160)
                 
                 // زر التالي
-                Button {
-                    print("التالي تم الضغط عليه")
+//                Button {
+//                    print("التالي تم الضغط عليه")
+//                } label:{
+//                    RoundedRectangle(cornerRadius: 21)
+//                        .fill(Color(red: 234/255, green: 138/255, blue: 72/255))
+//                        .frame(width: 200, height: 45)
+//                }
+//                .buttonStyle(.plain)
+//                .shadow(radius: 2)
+                
+                // زر "التالي" → يفتح صفحة HomeView
+                // زر "التالي" → يفتح HomeView
+                NavigationLink {
+                    HomeView()
                 } label: {
                     RoundedRectangle(cornerRadius: 21)
                         .fill(Color(red: 234/255, green: 138/255, blue: 72/255))
                         .frame(width: 200, height: 45)
+                        .overlay(
+                            Text("التالي")
+                                .foregroundColor(.white)
+                                .font(.title3)
+                        )
                 }
                 .buttonStyle(.plain)
                 .shadow(radius: 2)
+
+
                 
                 Spacer()
             }
