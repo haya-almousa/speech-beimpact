@@ -40,12 +40,13 @@ struct HomeScreen: View {
     ]
 
     // هنا نربط كل صورة كرت بالحروف + ID الفيديو حقها
-    // كمّلي أنتي باقي الحروف والـ IDs
+    // (تم إضافة Image 4 فقط — بدون تغيير أي شيء آخر)
     let letterData: [String: ([String], String)] = [
         "Image 1": (["A"], "biWQsbDq5O0"),
         "Image 2": (["B"], "xxxxxxxxxxx"),
-        "Image 3": (["C"], "yyyyyyyyyyy")
-        // ... كمّلي للباقي Image 4 .. Image 9
+        "Image 3": (["C"], "yyyyyyyyyyy"),
+        "Image 4": (["D"], "zzzzzzzzzzz")   // ← فقط هذا السطر مضاف
+        // باقي الصور ما نبغاها تشتغل
     ]
     
     var body: some View {
