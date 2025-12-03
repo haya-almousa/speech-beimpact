@@ -57,10 +57,29 @@ struct HomeView: View {
                     .font(.system(size: 32, weight: .bold))
                     .foregroundColor(.black)
                     .frame(width: 300, height: 120)
+<<<<<<< HEAD
+                    .background(Color(hex: "FFFFFF"))
+                    .cornerRadius(20)
+                    .opacity(0.60)
+                    .shadow(color: .black.opacity(0.15), radius: 6, y: 4)
+                
+                // أيقونة الميكروفون (زر واحد)
+//                Button(action: {
+//                    toggleRecording()
+//                }) {
+//                    Image(systemName: isRecording ? "mic.fill" : "mic.slash.fill")
+//                        .font(.system(size: 80))
+//                        .foregroundColor(Color(red: 0.98, green: 0.80, blue: 0.20))
+//                        .padding()
+//                        .background(Circle().fill(Color(red: 0.86, green: 0.52, blue: 0.26).opacity(0.3)))
+//                        .shadow(radius: 5)
+//                }
+=======
                     .background(Color(hex: "ffffff"))
                     .cornerRadius(20)
                     .opacity(0.60)
 
+>>>>>>> main
                 Button(action: {
                     toggleRecording()
                 }) {
@@ -70,7 +89,12 @@ struct HomeView: View {
                         .frame(width: 150, height: 150)
                         .background(
                             RoundedRectangle(cornerRadius: 30)
+<<<<<<< HEAD
+                                .fill(Color(hex: "F6B922")
+                                    .opacity(0.90))
+=======
                                 .fill(Color(hex: "f6b922").opacity(0.90))
+>>>>>>> main
                         )
                         .shadow(color: .black.opacity(0.25), radius: 8, y: 5)
                 }
