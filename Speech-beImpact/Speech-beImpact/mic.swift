@@ -31,7 +31,7 @@ struct HomeView: View {
     
     let exercises: [String: [String]] = [
         "A": ["Apple", "Air"],
-        "B": ["Ball", "Bee", "Banana"],
+        "B": [ "Bee", "Banana"],
         "C": ["Cat", "Cake", "Car"]
     ]
 
