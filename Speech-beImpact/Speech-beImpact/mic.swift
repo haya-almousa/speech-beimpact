@@ -29,11 +29,19 @@ struct HomeView: View {
     }
     
     
+//    let exercises: [String: [String]] = [
+//        "A": ["Apple", "Air"],
+//        "B": [ "Bee", "Banana"],
+//        
+//        
+//        "C": ["Cat", "Cake", "Car"]
+//    ]
     let exercises: [String: [String]] = [
-        "A": ["Apple", "Air"],
-        "B": [ "Bee", "Banana"],
-        "C": ["Cat", "Cake", "Car"]
+        "A": ["Up", "Arm", "Yes"],
+        "B": ["Ball", "Bee", "Bag"],
+        "C": ["Cat", "Cup", "Car"]
     ]
+ 
 
     var body: some View {
         ZStack {
@@ -95,10 +103,29 @@ struct HomeView: View {
         }
     }
     
+//    func toggleRecording() {
+//        if isRecording {
+//            recognizer.stop()
+//            checkWord()
+//            isRecording = false
+//        } else {
+//            recognizer.start()
+//            resultMessage = ""
+//            showNextButton = false
+//            isRecording = true
+//        }
+//    }
+    
+//
+    
     func toggleRecording() {
         if isRecording {
             recognizer.stop()
-            checkWord()
+
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                checkWord()
+            }
+
             isRecording = false
         } else {
             recognizer.start()
@@ -107,30 +134,59 @@ struct HomeView: View {
             isRecording = true
         }
     }
+
+    
+//    
+//    func checkWord() {
+//        let spoken = recognizer.transcript.trimmingCharacters(in: .whitespaces)
+//        
+//        
+//        if spoken.contains(targetWord) {
+//            // ✔️ الإجابة صحيحة
+//            resultMessage = "😁"
+//            db.insert(word: targetWord, correct: true)
+//
+//            // يظهر زر التالي فقط إذا كانت صح
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+//                showNextButton = true
+//            }
+//
+//        } else {
+//            // ❌ إجابة خاطئة
+//            resultMessage = "😔"
+//            db.insert(word: targetWord, correct: false)
+//
+//            // لا يظهر زر التالي إذا كانت خطأ
+//            showNextButton = false
+//        }
+//    }
+
     
     func checkWord() {
-        let spoken = recognizer.transcript.trimmingCharacters(in: .whitespaces)
-        
-        if spoken.contains(targetWord) {
-            // ✔️ الإجابة صحيحة
+        let spoken = recognizer.transcript.trimmingCharacters(in: .whitespacesAndNewlines)
+
+        let spokenLower = spoken.lowercased()
+        let targetLower = targetWord.lowercased()
+
+        if spokenLower.contains(targetLower) {
             resultMessage = "😁"
             db.insert(word: targetWord, correct: true)
 
-            // يظهر زر التالي فقط إذا كانت صح
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 showNextButton = true
             }
 
         } else {
-            // ❌ إجابة خاطئة
             resultMessage = "😔"
             db.insert(word: targetWord, correct: false)
-
-            // لا يظهر زر التالي إذا كانت خطأ
             showNextButton = false
         }
     }
 
+    
+    
+    
+    
     
     func nextSentence() {
         if currentIndex < sentences.count - 1 {
@@ -192,5 +248,7 @@ struct HomeView_Previews: PreviewProvider {
 
 
 #Preview {
-    HomeView(sentences: ["Apple", "Ant", "Air"])
+//    HomeView(sentences: ["Apple", "Ant", "Air"])
+    HomeView(sentences: ["Up", "Air", "Arm"])
+
 }
