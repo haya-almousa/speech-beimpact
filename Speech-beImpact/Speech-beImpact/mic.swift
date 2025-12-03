@@ -37,7 +37,7 @@ struct HomeView: View {
 //        "C": ["Cat", "Cake", "Car"]
 //    ]
     let exercises: [String: [String]] = [
-        "A": ["Up", "Arm", "Yes"],
+        "A": ["Apple", "Arm", "Yes"],
         "B": ["Ball", "Bee", "Bag"],
         "C": ["Cat", "Cup", "Car"]
     ]
@@ -241,7 +241,7 @@ struct TopWaveShape: Shape {
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView(sentences: ["Apple", "Ant", "Air"])
+        HomeView(sentences: ["Apple", "Arm", "Yes"])
     }
 }
 
@@ -249,6 +249,6 @@ struct HomeView_Previews: PreviewProvider {
 
 #Preview {
 //    HomeView(sentences: ["Apple", "Ant", "Air"])
-    HomeView(sentences: ["Up", "Air", "Arm"])
+    HomeView(sentences: ["Apple", "Arm", "Yes"])
 
 }
