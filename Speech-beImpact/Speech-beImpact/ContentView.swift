@@ -1,18 +1,23 @@
-//
-//  ContentView.swift
-//  Speech-beImpact
-//
-//  Created by Haya almousa on 30/11/2025.
-//
-
 import SwiftUI
 
 struct ContentView: View {
+    @State private var showSplash: Bool = true
+    
     var body: some View {
-   
+        ZStack {
+            if showSplash {
+                // شاشة السبلاش
+                SplashView(showSplash: $showSplash)
+            } else {
+                // شاشة الـ Onboarding الأولى
+                OnboardingView()
+            }
+        }
     }
 }
 
-#Preview {
-    d()
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+    }
 }
