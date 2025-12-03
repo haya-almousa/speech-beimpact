@@ -57,29 +57,11 @@ struct HomeView: View {
                     .font(.system(size: 32, weight: .bold))
                     .foregroundColor(.black)
                     .frame(width: 300, height: 120)
-<<<<<<< HEAD
-                    .background(Color(hex: "FFFFFF"))
+                    .background(Color(hex: "ffffff"))
                     .cornerRadius(20)
                     .opacity(0.60)
                     .shadow(color: .black.opacity(0.15), radius: 6, y: 4)
                 
-                // أيقونة الميكروفون (زر واحد)
-//                Button(action: {
-//                    toggleRecording()
-//                }) {
-//                    Image(systemName: isRecording ? "mic.fill" : "mic.slash.fill")
-//                        .font(.system(size: 80))
-//                        .foregroundColor(Color(red: 0.98, green: 0.80, blue: 0.20))
-//                        .padding()
-//                        .background(Circle().fill(Color(red: 0.86, green: 0.52, blue: 0.26).opacity(0.3)))
-//                        .shadow(radius: 5)
-//                }
-=======
-                    .background(Color(hex: "ffffff"))
-                    .cornerRadius(20)
-                    .opacity(0.60)
-
->>>>>>> main
                 Button(action: {
                     toggleRecording()
                 }) {
@@ -89,21 +71,14 @@ struct HomeView: View {
                         .frame(width: 150, height: 150)
                         .background(
                             RoundedRectangle(cornerRadius: 30)
-<<<<<<< HEAD
-                                .fill(Color(hex: "F6B922")
-                                    .opacity(0.90))
-=======
                                 .fill(Color(hex: "f6b922").opacity(0.90))
->>>>>>> main
                         )
                         .shadow(color: .black.opacity(0.25), radius: 8, y: 5)
                 }
 
-                
-                
-                                Text("انت قلت:")
-                                Text(recognizer.transcript)
-                                    .foregroundColor(.gray)
+                Text("انت قلت:")
+                Text(recognizer.transcript)
+                    .foregroundColor(.gray)
                 Text(resultMessage)
                     .font(.largeTitle)
 
@@ -140,8 +115,6 @@ struct HomeView: View {
 //        }
 //    }
     
-//
-    
     func toggleRecording() {
         if isRecording {
             recognizer.stop()
@@ -159,33 +132,6 @@ struct HomeView: View {
         }
     }
 
-    
-//    
-//    func checkWord() {
-//        let spoken = recognizer.transcript.trimmingCharacters(in: .whitespaces)
-//        
-//        
-//        if spoken.contains(targetWord) {
-//            // ✔️ الإجابة صحيحة
-//            resultMessage = "😁"
-//            db.insert(word: targetWord, correct: true)
-//
-//            // يظهر زر التالي فقط إذا كانت صح
-//            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-//                showNextButton = true
-//            }
-//
-//        } else {
-//            // ❌ إجابة خاطئة
-//            resultMessage = "😔"
-//            db.insert(word: targetWord, correct: false)
-//
-//            // لا يظهر زر التالي إذا كانت خطأ
-//            showNextButton = false
-//        }
-//    }
-
-    
     func checkWord() {
         let spoken = recognizer.transcript.trimmingCharacters(in: .whitespacesAndNewlines)
 
@@ -207,11 +153,6 @@ struct HomeView: View {
         }
     }
 
-    
-    
-    
-    
-    
     func nextSentence() {
         if currentIndex < sentences.count - 1 {
             currentIndex += 1
@@ -225,7 +166,6 @@ struct HomeView: View {
         }
     }
 }
-
 
 extension Color {
     init(hex: String) {
@@ -261,15 +201,11 @@ struct TopWaveShape: Shape {
     }
 }
 
-
-
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
         HomeView(sentences: ["Apple", "Arm", "Yes"])
     }
 }
-
-
 
 #Preview {
 //    HomeView(sentences: ["Apple", "Ant", "Air"])
