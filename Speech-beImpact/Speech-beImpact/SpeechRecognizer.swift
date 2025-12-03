@@ -14,7 +14,7 @@ import Combine
 class SpeechRecognizer: ObservableObject {
     @Published var transcript: String = ""
 
-    private let recognizer = SFSpeechRecognizer(locale: Locale(identifier: "en-US"))//ar-SA
+    private let recognizer = SFSpeechRecognizer(locale: Locale(identifier: "en-US"))
     private let audioEngine = AVAudioEngine()
     private var request: SFSpeechAudioBufferRecognitionRequest?
     private var task: SFSpeechRecognitionTask?

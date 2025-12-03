@@ -11,7 +11,7 @@ import SwiftUI
 struct Speech_beImpactApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            d()
         }
     }
 }
